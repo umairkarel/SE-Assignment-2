@@ -1,3 +1,3 @@
-# Assignment 2
+# Assignments for Software Engineering Class
 
-Implement a Python program to send OTP via email and verify it.
+**Assignment 2**: Implement a Python program to send OTP via email and verify it.
