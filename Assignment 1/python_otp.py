@@ -17,7 +17,7 @@ load_dotenv(find_dotenv())
 
 SENDER_EMAIL = env.get('EMAIL')
 SENDER_EMAIL_PASSWD = env.get('PASSWORD')
-OTP_LENGTH = 4
+OTP_LENGTH = env.get("OTP_LENGTH")
 
 # regular expression for validating an Email
 regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
