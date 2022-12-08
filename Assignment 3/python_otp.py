@@ -11,30 +11,42 @@ import smtplib
 load_dotenv(find_dotenv())
 
 
-class OTPSender:
+class OTPService:
     def __init__(self, email, passwd):
-        self.email = email
-        self.passwd = passwd
-        self.smtp = smtplib.SMTP('smtp.gmail.com', 587)
+        self._email = email
+        self._passwd = passwd
+        self._server = smtplib.SMTP('smtp.gmail.com', 587)
+        self._OTP = ""
 
     def sendMail(self, receiver):
-        msg = '\n\nThe One Time Password(OTP) is: ' + self.OTP
-        self.smtp.sendmail(self.email, receiver, msg)
+        msg = '\n\nThe One Time Password(OTP) is: ' + self._OTP
+        self._server.sendmail(self._email, receiver, msg)
+        print("\n\tOTP is sent to the given email address")
 
-    def initiateSMTP(self):
-        self.smtp.starttls()
-        self.smtp.login(self.email, self.passwd)
+    def initiateServer(self):
+        self._server.starttls()
+        self._server.login(self._email, self._passwd)
+        print("\nSMTP server is initialized and running....")
 
-    def quitSMTP(self):
-        self.smtp.quit()
+    def closeServer(self):
+        self._server.quit()
+        print("\nSMTP server closed.")
 
     def generateOTP(self, length):
+        if length < 4 or length > 6:
+            print("The length of the OTP must be at-least 4 and at-max 6")
+            return False
+
         digits = "0123456789"
         otp = random.sample(digits, length)
-        self.OTP = "".join(otp)
+        self._OTP = "".join(otp)
 
-    def isValidOTP(self, otp):
-        return self.OTP == otp
+    def validateOTP(self, otp):
+        if self._OTP != "" and self._OTP == otp:
+            print("Given OTP was correct")
+        else:
+            print("Given OTP was incorrect")
+        
 
 
 
@@ -45,7 +57,8 @@ if __name__ == "__main__":
     EMAIL_PASSWD = env.get('PASSWORD')
     LENGTH = int(env.get("OTP_LENGTH"))
 
-    otpSender = OTPSender(EMAIL, EMAIL_PASSWD)
+    otpSender = OTPService(EMAIL, EMAIL_PASSWD)
+    otpSender.initiateServer()
 
 
     # Taking Input
@@ -56,22 +69,11 @@ if __name__ == "__main__":
         print("Please enter a valid email address")
         receiver_email = input("Email: ")
 
-
     otpSender.generateOTP(LENGTH)
-    otpSender.initiateSMTP()
     otpSender.sendMail(receiver_email)
 
-
-    print()
-    print("OTP is sent to the given email address")
-    print()
     print("Please enter the OTP to proceed")
     otp = input("OTP: ")
+    otpSender.validateOTP(otp)
 
-    if otpSender.isValidOTP(otp):
-        print("Given OTP was correct")
-    else:
-        print("Given OTP was incorrect")
-
-
-    otpSender.quitSMTP()
+    otpSender.closeServer()
