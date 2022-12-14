@@ -1,6 +1,6 @@
-# Assignment #1
+# Assignment #3
 
-**Statement:** Sending and generating OTP as a program without Functional decomposition
+**Statement:** Implementation of OTP sender using OOP design.
 
 **Setting Environment Variables for program**
 - Create a file named **.env** in sample folder of the program file.
