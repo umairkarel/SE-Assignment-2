@@ -44,8 +44,8 @@ class TestOTPService(unittest.TestCase):
     def test_sendMail(self):
         print("\n\t----------Testing For sendMail---------\n")
 
-        email1 = "umair.karel@gmail.com"
-        email2 = "fakeufcid@gmail.com"
+        email1 = "" # Enter email for test
+        email2 = "" # Enter different email for test
 
         expected_output = "\n\tOTP is sent to the given email address\n"
 
