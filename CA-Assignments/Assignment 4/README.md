@@ -1,6 +1,6 @@
-# Assignment #3
+# Assignment #4
 
-**Statement:** Implementation of OTP sender using OOP design.
+**Statement:** Implementation of Test cases for OTP program.
 
 **Setting Environment Variables for program**
 - Create a file named **.env** in sample folder of the program file.
